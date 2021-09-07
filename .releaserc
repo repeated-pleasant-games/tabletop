@@ -1,0 +1,69 @@
+{
+    "branches": [
+      "master",
+      {
+        "name": "alpha",
+        "channel": "alpha",
+        "prerelease": "alpha"
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/changelog.md"
+        }
+      ],
+      [
+        "@google/semantic-release-replace-plugin",
+        {
+          "replacements": [
+            {
+              "files": [
+                "src/config/index.ts"
+              ],
+              "from": "__VERSION__ = '.*'",
+              "to": "__VERSION__ = '${nextRelease.version}'",
+              "results": [
+                {
+                  "file": "src/config/index.ts",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "dist.zip",
+              "name": "dist.zip",
+              "label": "Deployable package of RPG Tabletop"
+            }
+          ],
+          "assignees": [
+            "joebobmiles"
+          ]
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version} [skip ci]",
+          "assets": [
+            "package.json",
+            "docs/changelog.md",
+            "src/config/index.ts"
+          ]
+        }
+      ]
+    ]
+}
