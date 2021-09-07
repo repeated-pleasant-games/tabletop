@@ -3,6 +3,14 @@
 Tabletop is a feature-light virtual tabletop (VTT) that provides the bare
 essentials for playing tabletop roleplaying games online.
 
+> _Why a new repository, Joe?_ Well, after thinking about the design of the
+> app I was building and the problems I wanted to solve, I realized that [the
+> old repo](https://github.com/repeated-pleasant-games/tabletop-old) had grow
+> into a mess - even after a major refactor. Features were unscoped, there was
+> no solid foundation, no end goal, just a lot of creep. This repository isn't
+> going to fix those problems, but it gives me a chance to start over and build
+> from hard requirements instead of loose desires.
+
 ---
 
 # License
