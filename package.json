@@ -4,7 +4,8 @@
   "description": "A local-first, peer-to-peer virtual tabletop (VTT).",
   "scripts": {
     "develop": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "prepare": "husky install"
   },
   "keywords": [
     "vtt",
