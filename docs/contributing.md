@@ -58,4 +58,10 @@ Where:
      *  Does not have a capitalized first word (i.e. "hello, World!" instead of
         "Hello, World!").
      *  Does not have a period/dot ('.') at the end.
- *  `[optional body]` use imperative, present tense
+ *  `[optional body]` uses imperative, present tense like `<description>` and it
+    should include the motivation for the change and contrast this with previous
+    behavior. It must be preceded by a blank line.
+ *  `[optional footer]` contains information about breaking changes and is the
+    place to reference GitHub issues and pull requests. If reporting breaking
+    changes, the description of these changes must be preceded by `BREAKING
+    CHANGE:`.
