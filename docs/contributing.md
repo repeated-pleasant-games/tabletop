@@ -1,4 +1,4 @@
-# Contributer's Guide
+# Contributor's Guide
 
 ## Getting Started
 
@@ -21,9 +21,9 @@
 
     This command will run the `vite` development server, which will by default
     serve the app on `http://localhost:3000`. If port 3000 is unavailable,
-    `vite` serves on port 3001. If that port is unavailable, it continues
+    `vite` serves on port 3001. If that port is unreachable, it continues
     incrementing the port number and checking if it is available until it finds
-    an available port.
+    an open port.
 
 ## Committing, Pushing, and Merging
 
@@ -31,9 +31,11 @@
 
 I use the Conventional Commit style for my commits to this repository, enforced
 by `commitlint` and a commit-message hook installed by `husky` during dependency
-setup. I also run `commitlint` on push via GitHub Actions, which will check if
-the pushed commits are in line with the Conventional Commit style. (Commits that
-do not follow that style will not bring me to reject your changes.)
+setup. I also run `commitlint` on push via GitHub Actions, which will check
+if the pushed commits are in line with the Conventional Commit style.
+
+> ***Note:*** Submitting commits that do not fit the Conventional Commit style
+> does not preclude them from being merged.
 
 The Conventional Commit style follows this template:
 
