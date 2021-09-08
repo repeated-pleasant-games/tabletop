@@ -7,6 +7,11 @@
     "module": "commonjs",
     "rootDir": "./src",
     "moduleResolution": "node",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     /* Emit */
     "sourceMap": true,
     "outDir": "./dist",
@@ -19,5 +24,10 @@
     "alwaysStrict": true,
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+  },
+  "exclude": [
+    "node_modules/*",
+    "dist/*",
+    "*.config.ts"
+  ]
 }
