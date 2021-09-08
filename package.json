@@ -5,6 +5,7 @@
   "scripts": {
     "develop": "vite",
     "build": "vite build",
+    "test": "jest",
     "prepare": "husky install"
   },
   "keywords": [
