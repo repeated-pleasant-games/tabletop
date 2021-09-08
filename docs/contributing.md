@@ -53,15 +53,31 @@ Where:
  *  `[optional scope]` is a feature name surrounded in parenthesis. (i.e.
     `(table)`).
  *  `<description>` is a statement of what the commit does.
-     *  It _must_ be imperative, present tense (i.e. "change" instead of
+     *  It _must_ be imperative, present tense (i.e., "change" instead of
         "changed" or "changes").
-     *  Does not have a capitalized first word (i.e. "hello, World!" instead of
+     *  Does not have a capitalized first word (i.e., "hello, World!" instead of
         "Hello, World!").
      *  Does not have a period/dot ('.') at the end.
- *  `[optional body]` uses imperative, present tense like `<description>` and it
+ *  `[optional body]` uses imperative, present tense like `<description>`, and it
     should include the motivation for the change and contrast this with previous
-    behavior. It must be preceded by a blank line.
+    behavior. A blank line must precede the body.
  *  `[optional footer]` contains information about breaking changes and is the
     place to reference GitHub issues and pull requests. If reporting breaking
-    changes, the description of these changes must be preceded by `BREAKING
-    CHANGE:`.
+    changes, `BREAKING CHANGE:` must precede the description of these changes.
+
+### Pushing Changes and Patches
+
+You cannot push to the `master`, `alpha`, and `staging` branches unless the
+current head has passed all unit tests and linting checks. This policy prevents
+errant pushes that trigger a release. Instead of working directly on `master`,
+`alpha`, or `staging`, create a new branch for your work and push it to the
+repository.  If you do not have push access, fork the repository and push your
+changes there.
+
+The recommended naming convention for branches is `<type>/<short description>`.
+`<type>` is any of: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`,
+`refactor`, `revert`, `style`, `test`, or `pr`. `<short description>` is a quick
+name for the patch or fix. If fixing an issue, the description can be
+`issue-<issue number>`.
+
+### Merging Changes and Patches
