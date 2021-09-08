@@ -11,6 +11,10 @@ essentials for playing tabletop roleplaying games online.
 > repository isn't > going to fix those problems, but it gives me a chance to
 > start over and build > from hard requirements instead of loose desires.
 
+## Contributing
+
+Read [the contributing guide](docs/contributing.md) to learn more.
+
 ---
 
 # License
