@@ -152,3 +152,13 @@ name>`.  This path will import the entry point of the feature and should be the
 only method of including a part of a feature. Imports that reach inside a
 feature, such as `@/feature/<feature name>/component/<component name>` are not
 allowed.
+
+## Testing
+
+> Write tests. Not too many. Mostly integration.
+
+Tests are written to validate that a feature works as intended. Not everything
+needs tests (though the more testable everything is, the easier it is to find
+bugs). Tests should be written to check that code or components available to the
+outside world perform their expected functions. Tests should test features the
+way they will be used by users (this includes fellow developers).
