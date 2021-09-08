@@ -1,12 +1,20 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  'resolve': {
-    'alias': [
+  resolve: {
+    alias: [
       {
-        'find': '/^@(?=/).*/',
-        'replacement': '$1'
+        find: /^@\/(.*)$/,
+        replacement: resolve(__dirname, 'src/$1')
       }
     ]
+  },
+  server: {
+    fs: {
+      allow: [
+        '.'
+      ]
+    }
   }
 })
