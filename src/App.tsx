@@ -7,5 +7,13 @@ const Grid = (): JSX.Element => (
 )
 
 export default (): JSX.Element => (
-  <Table grid={Grid} />
+  <main
+    style={{
+      display: 'grid',
+      width: '100vw',
+      height: '100vh'
+    }}
+  >
+    <Table grid={Grid} />
+  </main>
 )

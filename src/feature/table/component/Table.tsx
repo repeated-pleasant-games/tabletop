@@ -5,7 +5,12 @@ export const Table = ({
 }: {
   grid: () => JSX.Element
 }): JSX.Element => (
-  <svg>
+  <svg
+    style={{
+      width: '100%',
+      height: '100%'
+    }}
+  >
     <Grid />
   </svg>
 )
