@@ -1,3 +1,3 @@
-import { VERSION } from './config'
+import { VERSION } from '@/config'
 
 console.log(VERSION)
