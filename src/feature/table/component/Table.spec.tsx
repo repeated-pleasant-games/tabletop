@@ -10,7 +10,7 @@ describe('Table', () => {
       <rect data-testid='grid' />
     )
 
-    render(<Table grid={Grid} />)
+    render(<Table background={Grid} />)
 
     expect(screen.getByTestId('grid')).toBeInTheDocument()
   })

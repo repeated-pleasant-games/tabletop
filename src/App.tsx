@@ -14,6 +14,6 @@ export default (): JSX.Element => (
       height: '100vh'
     }}
   >
-    <Table grid={Grid} />
+    <Table background={Grid} />
   </main>
 )

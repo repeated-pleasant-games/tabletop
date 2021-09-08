@@ -1,9 +1,9 @@
 import React from 'react'
 
 export const Table = ({
-  grid: Grid
+  background: Background
 }: {
-  grid: () => JSX.Element
+  background: () => JSX.Element
 }): JSX.Element => (
   <svg
     style={{
@@ -11,6 +11,6 @@ export const Table = ({
       height: '100%'
     }}
   >
-    <Grid />
+    <Background />
   </svg>
 )
