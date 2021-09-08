@@ -81,3 +81,11 @@ name for the patch or fix. If fixing an issue, the description can be
 `issue-<issue number>`.
 
 ### Merging Changes and Patches
+
+To merge your changes, you must submit a PR that targets `staging`. PRs that are
+not version releases from `staging` to `alpha` or `master` will automatically be
+closed. I will review Your PR will to ensure that the changes are in line with
+the goals and design of the codebase.
+
+Once I accept your change into `staging`, I will merge it into `alpha` or
+`master` as part of the next release.
