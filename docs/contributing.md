@@ -89,3 +89,66 @@ the goals and design of the codebase.
 
 Once I accept your change into `staging`, I will merge it into `alpha` or
 `master` as part of the next release.
+
+## Project Structure
+
+I follow the Bulletproof React guidelines for structuring this project. This
+means that the `src/` directory is laid out as:
+
+```
+src
+|
++-- assets            # assets folder can contain all the static data such as images, fonts, etc.
+|
++-- components        # shared components used across the entire application
+|
++-- config            # all the global configuration, env variables, etc. get exported from here and used in the app
+|
++-- features          # feature based modules
+|
++-- hooks             # shared hooks used across the entire application
+|
++-- lib               # re-exporting different libraries pre-configured for the application
+|
++-- providers         # all of the application providers
+|
++-- routes            # routes configuration
+|
++-- stores            # global state stores
+|
++-- test              # test utilities and mock server
+|
++-- types             # base types used across the application
+|
++-- utils             # shared utility functions
+```
+
+Every feature folder contains domain-specific code for a specific feature of the
+application. This structure promotes the encapsulation of areas of concern and
+makes the application easier to maintain.
+
+Inside each feature folder is this structure:
+
+```
+src/features/awesome-feature
+|
++-- api         # exported API request declarations and API hooks related to the feature
+|
++-- components  # components scoped to the feature, not used anywhere else
+|
++-- hooks       # hooks scoped to the feature, not used anywhere else
+|
++-- routes      # route components for the given feature
+|
++-- types       # typescript types for the given feature
+|
++-- utils       # utility functions used only by the feature
+|
++-- index.ts    # entry point for the feature, it should serve as the public API of the given feature and exports everything that should be used outside the feature
+```
+
+When importing a feature, use the following module path: `@/feature/<feature
+name>`.  This path will import the entry point of the feature and should be the
+only method of including a part of a feature. Imports that reach inside a
+feature, such as `@/feature/<feature name>/component/<component name>` are not
+allowed.
