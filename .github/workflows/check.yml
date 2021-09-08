@@ -1,0 +1,55 @@
+name: Check Push/PR
+
+on:
+  push:
+    branches: ['**/**']
+  pull_request:
+    branches: ['**/**']
+
+jobs:
+  commitlint:
+    name: Lint commits
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - run: npm ci
+
+      - run: npx --no-install commitlint --from HEAD~1 --to HEAD --verbose
+
+  ts-standard:
+    name: Lint code
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - run: npm ci
+
+      - run: npx --no-install ts-standard
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - run: npm ci
+
+      - run: npm test
