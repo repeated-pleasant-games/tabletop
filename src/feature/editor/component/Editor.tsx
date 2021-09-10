@@ -5,7 +5,7 @@ import { getScale, inverseOf, toSvgMatrix } from '@/lib/Transform'
 
 import { Table } from '@/feature/table'
 
-const GridPattern = forwardRef<SVGPatternElement>((_, ref): JSX.Element => {
+const GridPattern = forwardRef<SVGPatternElement>((_, ref) => {
   const viewTransform = useLocalStore(({ viewTransform }) => viewTransform)
 
   return (
