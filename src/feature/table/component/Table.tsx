@@ -2,6 +2,7 @@ import React from 'react'
 
 import useLocalStore from '@/store/local'
 import { translateBy } from '@/lib/Transform'
+import { Cursor } from '@/component/Cursor'
 
 export const Table = ({
   background: Background
@@ -64,11 +65,10 @@ export const Table = ({
       {
         showPointer
           ? (
-            <rect
-              x={pointerPosition[0]} y={pointerPosition[1]}
-              fill='red'
-              width={5}
-              height={5}
+            <Cursor
+              x={pointerPosition[0]}
+              y={pointerPosition[1]}
+              fill='black'
             />
           )
           : null
