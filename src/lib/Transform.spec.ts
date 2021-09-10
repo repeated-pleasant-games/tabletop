@@ -12,7 +12,8 @@ import {
   apply,
   determinantOf,
   inverseOf,
-  negationOf
+  negationOf,
+  transformOf
 } from './Transform'
 
 describe('identityTransform', () => {
@@ -254,6 +255,18 @@ describe('negationOf', () => {
     expect(negationOf(transform)).toStrictEqual([
       [1 / 2, 0, 0],
       [0, 1 / 3, 0],
+      [0, 0, 1]
+    ])
+  })
+})
+
+describe('transformOf', () => {
+  it('Creates a transform with the provided scale and position', () => {
+    expect(
+      transformOf(1, 2, 3)
+    ).toEqual([
+      [3, 0, 1],
+      [0, 3, 2],
       [0, 0, 1]
     ])
   })

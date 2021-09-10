@@ -159,3 +159,9 @@ export const negationOf = ([
     [0, 1 / sy, y == 0 ? 0 : -(y)], // eslint-disable-line eqeqeq
     [0, 0, 1]
   ])
+
+export const transformOf = (x: number, y: number, s: number): Transform => [
+  [s, 0, x],
+  [0, s, y],
+  [0, 0, 1]
+]
