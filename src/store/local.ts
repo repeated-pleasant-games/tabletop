@@ -1,7 +1,7 @@
 import create from 'zustand'
 
-import { identityTransform } from '@/lib/Transform'
+import { createTableStateSlice } from '@/feature/table'
 
 export default create(() => ({
-  viewTransform: identityTransform()
+  ...createTableStateSlice()
 }))
