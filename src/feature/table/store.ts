@@ -1,18 +1,18 @@
 import { SetState } from 'zustand'
-import { identityTransform, Transform, transformOf } from '@/lib/Transform'
+import { identityTransform, Transform } from '@/lib/Transform'
 
 interface TableStateSlice {
   viewTransform: Transform
-  setViewTransformTo: (pos: [ x: number, y: number ], scale: number) => void
+  setViewTransform: (t: Transform) => void
 }
 
 export const createTableStateSlice = (
   set: SetState<TableStateSlice>
 ): TableStateSlice => ({
   viewTransform: identityTransform(),
-  setViewTransformTo: ([x, y], scale) =>
+  setViewTransform: (viewTransform: Transform) =>
     set((prevState) => ({
       ...prevState,
-      viewTransform: transformOf(x, y, scale)
+      viewTransform
     }))
 })
