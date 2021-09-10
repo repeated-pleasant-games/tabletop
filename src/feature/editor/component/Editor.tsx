@@ -16,11 +16,7 @@ const GridPattern = forwardRef<SVGPatternElement>((_, ref): JSX.Element => {
         width='16'
         height='16'
         patternUnits='userSpaceOnUse'
-        patternTransform={
-          viewTransform !== undefined
-            ? toSvgMatrix(viewTransform)
-            : ''
-        }
+        patternTransform={toSvgMatrix(viewTransform)}
       >
         <path
           stroke='lightgrey'
