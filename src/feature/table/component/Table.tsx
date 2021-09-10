@@ -11,6 +11,10 @@ export const Table = ({
   const capturedPointerId = React.useRef<number>(-1)
   const prevPointerPosition = React.useRef<[x: number, y: number]>([0, 0])
 
+  const [showPointer, setShowPointer] = React.useState(false)
+  const [pointerPosition, setPointerPosition] =
+    React.useState<[x: number, y: number]>([0, 0])
+
   const [viewTransform, setViewTransform] = useLocalStore(
     ({ viewTransform, setViewTransform }) =>
       [viewTransform, setViewTransform]
@@ -20,7 +24,13 @@ export const Table = ({
     <svg
       style={{
         width: '100%',
-        height: '100%'
+        height: '100%',
+        cursor: 'none'
+      }}
+      onPointerEnter={() => setShowPointer(true)}
+      onPointerLeave={({ pointerId, target }) => {
+        (target as Element).releasePointerCapture(pointerId)
+        setShowPointer(false)
       }}
       onPointerDown={({ pointerId, target, clientX, clientY }) => {
         capturedPointerId.current = pointerId
@@ -29,6 +39,8 @@ export const Table = ({
         (target as Element).setPointerCapture(pointerId)
       }}
       onPointerMoveCapture={({ clientX, clientY }) => {
+        setPointerPosition([clientX, clientY])
+
         if (capturedPointerId.current !== -1) {
           setViewTransform(
             translateBy(
@@ -49,6 +61,18 @@ export const Table = ({
       }}
     >
       <Background />
+      {
+        showPointer
+          ? (
+            <rect
+              x={pointerPosition[0]} y={pointerPosition[1]}
+              fill='red'
+              width={5}
+              height={5}
+            />
+          )
+          : null
+      }
     </svg>
   )
 }
