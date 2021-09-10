@@ -1,10 +1,6 @@
 import React from 'react'
 
-import { Table } from '@/feature/table'
-
-const Grid = (): JSX.Element => (
-  <rect width='100%' height='100%' />
-)
+import { Editor } from '@/feature/editor'
 
 export default (): JSX.Element => (
   <main
@@ -14,6 +10,6 @@ export default (): JSX.Element => (
       height: '100vh'
     }}
   >
-    <Table background={Grid} />
+    <Editor />
   </main>
 )
