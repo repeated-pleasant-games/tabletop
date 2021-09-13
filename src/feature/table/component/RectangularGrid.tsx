@@ -30,6 +30,15 @@ const RectangularGridPattern = React.forwardRef<SVGPatternElement>((_, ref) => {
 export const RectangularGrid = (): JSX.Element => {
   const ref = React.useRef<SVGPatternElement>(null)
 
+  const [, dispatch] = React.useState(Object.create(null))
+  React.useEffect(
+    () => {
+      const handle = setTimeout(() => dispatch(Object.create(null)), 1)
+      return () => clearTimeout(handle)
+    },
+    []
+  )
+
   return (
     <>
       <RectangularGridPattern ref={ref} />
