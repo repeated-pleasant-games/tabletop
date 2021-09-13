@@ -3,46 +3,29 @@ import React from 'react'
 import useLocalStore from '@/store/local'
 import { getScale, inverseOf, toSvgMatrix } from '@/lib/Transform'
 
-const RectangularGridPattern = React.forwardRef<SVGPatternElement>((_, ref) => {
+export const RectangularGrid = (): JSX.Element => {
   const viewTransform = useLocalStore(({ viewTransform }) => viewTransform)
 
-  return (
-    <defs>
-      <pattern
-        ref={ref}
-        id='rectangular-grid-pattern'
-        width='16'
-        height='16'
-        patternUnits='userSpaceOnUse'
-        patternTransform={toSvgMatrix(viewTransform)}
-      >
-        <path
-          stroke='lightgrey'
-          fill='none'
-          d='M 16,0 L 0,0 0,16 16,16'
-          strokeWidth={1 * getScale(inverseOf(viewTransform))[0]}
-        />
-      </pattern>
-    </defs>
-  )
-})
-
-export const RectangularGrid = (): JSX.Element => {
-  const ref = React.useRef<SVGPatternElement>(null)
-
-  const [, dispatch] = React.useState(Object.create(null))
-  React.useEffect(
-    () => {
-      const handle = setTimeout(() => dispatch(Object.create(null)), 1)
-      return () => clearTimeout(handle)
-    },
-    []
-  )
-
+  const patternId = 'rectangular-grid-pattern'
   return (
     <>
-      <RectangularGridPattern ref={ref} />
-      <rect width='100%' height='100%' fill={`url(#${ref.current?.id ?? ''})`} />
+      <defs>
+        <pattern
+          id={patternId}
+          width='16'
+          height='16'
+          patternUnits='userSpaceOnUse'
+          patternTransform={toSvgMatrix(viewTransform)}
+        >
+          <path
+            stroke='lightgrey'
+            fill='none'
+            d='M 16,0 L 0,0 0,16 16,16'
+            strokeWidth={1 * getScale(inverseOf(viewTransform))[0]}
+          />
+        </pattern>
+      </defs>
+      <rect width='100%' height='100%' fill={`url(#${patternId})`} />
     </>
   )
 }
