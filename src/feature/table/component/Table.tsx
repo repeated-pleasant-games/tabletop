@@ -60,8 +60,8 @@ export const Table = ({
         }
       }}
       onPointerUp={({ pointerId, target }) => {
-        capturedPointerId.current = -1;
-        (target as Element).releasePointerCapture(pointerId)
+        capturedPointerId.current = -1
+        ;(target as Element).releasePointerCapture(pointerId)
       }}
     >
       <Background />
