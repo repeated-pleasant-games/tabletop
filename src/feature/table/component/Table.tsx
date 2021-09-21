@@ -11,6 +11,8 @@ export const Table = ({
 }): JSX.Element => {
   const capturedPointerId = React.useRef<number>(-1)
   const prevPointerPosition = React.useRef<[x: number, y: number]>([0, 0])
+  const [pointerType, setPointerType] =
+    React.useState<'mouse' | 'pen' | 'touch'>('mouse')
 
   const [showPointer, setShowPointer] = React.useState(false)
   const [pointerPosition, setPointerPosition] =
@@ -35,11 +37,12 @@ export const Table = ({
       }}
       onPointerDown={({ pointerId, target, clientX, clientY }) => {
         capturedPointerId.current = pointerId
-        prevPointerPosition.current = [clientX, clientY];
+        prevPointerPosition.current = [clientX, clientY]
 
-        (target as Element).setPointerCapture(pointerId)
+        ;(target as Element).setPointerCapture(pointerId)
       }}
-      onPointerMoveCapture={({ clientX, clientY }) => {
+      onPointerMoveCapture={({ clientX, clientY, pointerType }) => {
+        setPointerType(pointerType)
         setPointerPosition([clientX, clientY])
 
         if (capturedPointerId.current !== -1) {
@@ -63,7 +66,7 @@ export const Table = ({
     >
       <Background />
       {
-        showPointer
+        showPointer && pointerType === 'mouse'
           ? (
             <Cursor
               x={pointerPosition[0]}
