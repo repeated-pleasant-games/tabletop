@@ -4,6 +4,8 @@ import useLocalStore from '@/store/local'
 import { translateBy } from '@/lib/Transform'
 import { Cursor } from '@/component/Cursor'
 
+import { Token } from '../feature/token'
+
 export const Table = ({
   background: Background
 }: {
@@ -65,6 +67,7 @@ export const Table = ({
       }}
     >
       <Background />
+      <Token />
       {
         showPointer && pointerType === 'mouse'
           ? (
