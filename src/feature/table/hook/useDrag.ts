@@ -10,9 +10,11 @@ interface UseDragResult {
   pointerPosition: [number, number]
   movementDelta: [number, number]
   pointerType: PointerType
-  onPointerDown: (e: React.PointerEvent) => void
-  onPointerMoveCapture: (e: React.PointerEvent) => void
-  onPointerUp: (e: React.PointerEvent) => void
+  eventListeners: {
+    onPointerDown: (e: React.PointerEvent) => void
+    onPointerMoveCapture: (e: React.PointerEvent) => void
+    onPointerUp: (e: React.PointerEvent) => void
+  }
 }
 
 export const useDrag = (
@@ -20,6 +22,8 @@ export const useDrag = (
     onMove
   }: UseDragOptions
 ): UseDragResult => {
+  const [isPointerDown, setIsPointerDown] = React.useState(false)
+
   const [[pointerX, pointerY], setPointerPosition] = React.useState([0, 0])
 
   const prevPointerPosition = React.useRef<[number, number]>([0, 0])
@@ -43,17 +47,23 @@ export const useDrag = (
     pointerPosition: [pointerX, pointerY],
     movementDelta: pointerDelta.current,
     pointerType,
-    onPointerDown: () => {
+    eventListeners: {
+      onPointerDown: () => {
+        setIsPointerDown(true)
+      },
+      onPointerMoveCapture: (e) => {
+        if (isPointerDown) {
+          const { pointerType, clientX, clientY } = e
 
-    },
-    onPointerMoveCapture: (e) => {
-      const { pointerType, clientX, clientY } = e
+          setPointerType(pointerType)
+          setPointerPosition([clientX, clientY])
 
-      setPointerType(pointerType)
-      setPointerPosition([clientX, clientY])
-    },
-    onPointerUp: () => {
-
+          onMove(e)
+        }
+      },
+      onPointerUp: () => {
+        setIsPointerDown(false)
+      }
     }
   }
 }
