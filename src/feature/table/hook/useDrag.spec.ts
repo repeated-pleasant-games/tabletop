@@ -17,4 +17,12 @@ describe('useDrag hook', () => {
 
     expect(result.current.movementDelta).toEqual([0, 0])
   })
+
+  it('Starts with a pointer type of "mouse".', () => {
+    const { result } = renderHook(() => useDrag({
+      onMove: () => {}
+    }))
+
+    expect(result.current.pointerType).toBe('mouse')
+  })
 })
