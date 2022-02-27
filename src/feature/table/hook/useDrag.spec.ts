@@ -7,14 +7,14 @@ describe('useDrag hook', () => {
       onMove: () => {}
     }))
 
-    expect(result.current.pointerPos).toEqual([0, 0])
+    expect(result.current.pointerPosition).toEqual([0, 0])
   })
 
-  it('Starts with a pointer delta of [0,0].', () => {
+  it('Starts with a movement delta of [0,0].', () => {
     const { result } = renderHook(() => useDrag({
       onMove: () => {}
     }))
 
-    expect(result.current.pointerPos).toEqual([0, 0])
+    expect(result.current.movementDelta).toEqual([0, 0])
   })
 })
