@@ -27,6 +27,14 @@ describe('useDrag hook initial call', () => {
 
     expect(result.current.pointerType).toBe('mouse')
   })
+
+  it('Starts with isDragging as false.', () => {
+    const { result } = renderHook(() => useDrag({
+      onMove: () => {}
+    }))
+
+    expect(result.current.isDragging).toBe(false)
+  })
 })
 
 describe('useDrag hook event listeners', () => {

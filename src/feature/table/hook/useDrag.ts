@@ -7,6 +7,7 @@ interface UseDragOptions {
 }
 
 interface UseDragResult {
+  isDragging: boolean
   pointerPosition: [number, number]
   movementDelta: [number, number]
   pointerType: PointerType
@@ -44,6 +45,7 @@ export const useDrag = (
     React.useState<PointerType>('mouse')
 
   return {
+    isDragging: isPointerDown,
     pointerPosition: [pointerX, pointerY],
     movementDelta: pointerDelta.current,
     pointerType,
