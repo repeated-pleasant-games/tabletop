@@ -53,14 +53,10 @@ export const useDrag = (
       onPointerDown: () => {
         setIsPointerDown(true)
       },
-      onPointerMoveCapture: (e) => {
+      onPointerMoveCapture: ({ pointerType, clientX, clientY }) => {
         if (isPointerDown) {
-          const { pointerType, clientX, clientY } = e
-
           setPointerType(pointerType)
           setPointerPosition([clientX, clientY])
-
-          onMove(e)
         }
       },
       onPointerUp: () => {

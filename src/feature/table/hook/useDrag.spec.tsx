@@ -3,6 +3,8 @@ import { render, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { useDrag } from './useDrag'
 
+import '@/test/pointer-event'
+
 describe('useDrag hook initial call', () => {
   it('Starts with a pointer position of [0,0].', () => {
     const { result } = renderHook(() => useDrag({
@@ -35,20 +37,20 @@ describe('useDrag hook initial call', () => {
 
     expect(result.current.isDragging).toBe(false)
   })
-})
 
-describe('useDrag hook event listeners', () => {
-  it('Invokes onMove callback after pointer down and pointer move.', () => {
-    const onMove = jest.fn()
-
+  it('Updates pointer position on mouse move.', () => {
     const Component = (): JSX.Element => {
-      const { eventListeners } =
-        useDrag({
-          onMove
-        })
+      const {
+        pointerPosition: [pointerX, pointerY],
+        eventListeners
+      } = useDrag({ onMove: () => {} })
 
       return (
         <div
+          style={{
+            left: `${pointerX}px`,
+            top: `${pointerY}px`
+          }}
           data-testid='component'
           {...eventListeners}
         />
@@ -56,63 +58,12 @@ describe('useDrag hook event listeners', () => {
     }
 
     const { getByTestId } = render(<Component />)
+
     const component = getByTestId('component')
+    fireEvent.pointerDown(component, { clientX: 0, clientY: 0 })
+    fireEvent.pointerMove(component, { clientX: 1, clientY: 2 })
 
-    fireEvent.pointerDown(component)
-    fireEvent.pointerMove(component)
-
-    expect(onMove).toBeCalled()
-  })
-
-  it('Does not invoke onMove callback on only pointerMove.', () => {
-    const onMove = jest.fn()
-
-    const Component = (): JSX.Element => {
-      const { eventListeners } =
-        useDrag({
-          onMove
-        })
-
-      return (
-        <div
-          data-testid='component'
-          {...eventListeners}
-        />
-      )
-    }
-
-    const { getByTestId } = render(<Component />)
-    const component = getByTestId('component')
-
-    fireEvent.pointerMove(component)
-
-    expect(onMove).not.toBeCalled()
-  })
-
-  it('Does not invoke onMove callback after pointerUp', () => {
-    const onMove = jest.fn()
-
-    const Component = (): JSX.Element => {
-      const { eventListeners } =
-        useDrag({
-          onMove
-        })
-
-      return (
-        <div
-          data-testid='component'
-          {...eventListeners}
-        />
-      )
-    }
-
-    const { getByTestId } = render(<Component />)
-    const component = getByTestId('component')
-
-    fireEvent.pointerDown(component)
-    fireEvent.pointerUp(component)
-    fireEvent.pointerMove(component)
-
-    expect(onMove).not.toBeCalled()
+    expect(component.style.left).toBe('1px')
+    expect(component.style.top).toBe('2px')
   })
 })
