@@ -2,10 +2,6 @@ import React from 'react'
 
 type PointerType = 'mouse' | 'touch' | 'pen'
 
-interface UseDragOptions {
-  onMove: (e: React.PointerEvent) => void
-}
-
 interface UseDragResult {
   isDragging: boolean
   pointerPosition: [number, number]
@@ -18,11 +14,7 @@ interface UseDragResult {
   }
 }
 
-export const useDrag = (
-  {
-    onMove
-  }: UseDragOptions
-): UseDragResult => {
+export const useDrag = (): UseDragResult => {
   const [isPointerDown, setIsPointerDown] = React.useState(false)
 
   const [[pointerX, pointerY], setPointerPosition] = React.useState([0, 0])
