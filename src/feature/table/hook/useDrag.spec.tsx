@@ -116,4 +116,43 @@ describe('useDrag hook', () => {
     fireEvent.pointerMove(component, { pointerType: 'pen' })
     expect(component.textContent).toBe('pen')
   })
+
+  it('Sets isDragging to true when pointer is down and moving.', () => {
+    const Component = (): JSX.Element => {
+      const {
+        isDragging,
+        eventListeners
+      } = useDrag()
+
+      return (
+        <div
+          data-testid='component'
+          {...eventListeners}
+        >
+          {
+            isDragging
+              ? 'dragging'
+              : 'not dragging'
+          }
+        </div>
+      )
+    }
+
+    const { getByTestId } = render(<Component />)
+
+    const component = getByTestId('component')
+
+    /**
+     * NOTE: Do we want to set isDragging to true only when the pointer is
+     * moving?
+     */
+    fireEvent.pointerDown(component)
+    expect(component.textContent).toBe('dragging')
+
+    fireEvent.pointerMove(component)
+    expect(component.textContent).toBe('dragging')
+
+    fireEvent.pointerUp(component)
+    expect(component.textContent).toBe('not dragging')
+  })
 })
