@@ -14,7 +14,8 @@ export const Cursor = ({
   <g
     transform={`translate(${x},${y})`}
     style={{
-      fill
+      fill,
+      pointerEvents: 'none'
     }}
   >
     <path
