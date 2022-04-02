@@ -155,4 +155,66 @@ describe('useDrag hook', () => {
     fireEvent.pointerUp(component)
     expect(component.textContent).toBe('not dragging')
   })
+
+  it('Automatically captures the pointer', () => {
+    const Component = (): JSX.Element => {
+      const {
+        pointerPosition: [pointerX, pointerY],
+        eventListeners
+      } = useDrag()
+
+      return (
+        <div
+          style={{
+            left: `${pointerX}px`,
+            top: `${pointerY}px`
+          }}
+          data-testid='component'
+          {...eventListeners}
+        />
+      )
+    }
+
+    const dragCallback = jest.fn()
+    const Parent =
+      ({ children }: { children: React.ReactNode }): JSX.Element => {
+        const [isDragging, setIsDragging] = React.useState(false)
+
+        return (
+          <div
+            data-testid='parent'
+            onPointerDown={({ target, pointerId }) => {
+              setIsDragging(true);
+              (target as Element).setPointerCapture(pointerId)
+            }}
+            onPointerUp={({ target, pointerId }) => {
+              setIsDragging(false);
+              (target as Element).releasePointerCapture(pointerId)
+            }}
+            onPointerMove={() => {
+              if (isDragging) {
+                dragCallback()
+              }
+            }}
+          >
+            {children}
+          </div>
+        )
+      }
+
+    const { getByTestId } = render(
+      <Parent>
+        <Component />
+      </Parent>
+    )
+
+    const component = getByTestId('component')
+
+    fireEvent.pointerDown(component, { pointerId: 1 })
+    fireEvent.pointerMove(component, { pointerId: 1, clientX: 1, clientY: 2 })
+    expect(component.style.left).toBe('1px')
+    expect(component.style.top).toBe('2px')
+
+    expect(dragCallback).not.toBeCalled()
+  })
 })
