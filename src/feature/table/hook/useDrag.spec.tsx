@@ -5,7 +5,7 @@ import { useDrag } from './useDrag'
 
 import '@/test/pointer-event'
 
-describe('useDrag hook initial call', () => {
+describe('useDrag hook', () => {
   it('Starts with a pointer position of [0,0].', () => {
     const { result } = renderHook(() => useDrag({
       onMove: () => {}
