@@ -84,4 +84,36 @@ describe('useDrag hook', () => {
 
     expect(component.textContent).toBe('2, 1')
   })
+
+  it('Updates pointer type on mouse move.', () => {
+    const Component = (): JSX.Element => {
+      const {
+        pointerType,
+        eventListeners
+      } = useDrag()
+
+      return (
+        <div
+          data-testid='component'
+          {...eventListeners}
+        >
+          {pointerType}
+        </div>
+      )
+    }
+
+    const { getByTestId } = render(<Component />)
+
+    const component = getByTestId('component')
+
+    /**
+     * NOTE: Do we want to have it so that pointer type is also set on pointer
+     * down?
+     */
+    fireEvent.pointerDown(component, { pointerType: 'pen' })
+    expect(component.textContent).toBe('mouse')
+
+    fireEvent.pointerMove(component, { pointerType: 'pen' })
+    expect(component.textContent).toBe('pen')
+  })
 })
