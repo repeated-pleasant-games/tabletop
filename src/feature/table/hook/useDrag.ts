@@ -26,17 +26,14 @@ export const useDrag = (
   const [isPointerDown, setIsPointerDown] = React.useState(false)
 
   const [[pointerX, pointerY], setPointerPosition] = React.useState([0, 0])
+  const [[deltaX, deltaY], setPointerDelta] = React.useState([0, 0])
 
   const prevPointerPosition = React.useRef<[number, number]>([0, 0])
-  const pointerDelta = React.useRef<[number, number]>([0, 0])
 
   React.useEffect(
     () => {
       const [prevX, prevY] = prevPointerPosition.current
-      pointerDelta.current = [
-        prevX - pointerX,
-        prevY - pointerY
-      ]
+      setPointerDelta([pointerX - prevX, pointerY - prevY])
     },
     [pointerX, pointerY]
   )
@@ -47,7 +44,7 @@ export const useDrag = (
   return {
     isDragging: isPointerDown,
     pointerPosition: [pointerX, pointerY],
-    movementDelta: pointerDelta.current,
+    movementDelta: [deltaX, deltaY],
     pointerType,
     eventListeners: {
       onPointerDown: () => {
@@ -56,7 +53,10 @@ export const useDrag = (
       onPointerMove: ({ pointerType, clientX, clientY }) => {
         if (isPointerDown) {
           setPointerType(pointerType)
-          setPointerPosition([clientX, clientY])
+          setPointerPosition(([prevX, prevY]) => {
+            prevPointerPosition.current = [prevX, prevY]
+            return [clientX, clientY]
+          })
         }
       },
       onPointerUp: () => {
