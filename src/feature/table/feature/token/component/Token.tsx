@@ -1,17 +1,31 @@
 import React from 'react'
 
 import useLocalStore from '@/store/local'
-import { toSvgMatrix } from '@/lib/Transform'
+import { inverseOf, apply, toSvgMatrix } from '@/lib/Transform'
 
 import { useDrag } from '@/feature/table/hook/useDrag'
 
 export const Token = (): JSX.Element => {
+  const [[x, y], setPosition] = React.useState<[number, number]>([0, 0])
+
   const {
-    pointerPosition: [x, y],
+    pointerPosition: [pointerX, pointerY],
     eventListeners
   } = useDrag()
 
   const viewTransform = useLocalStore(({ viewTransform }) => viewTransform)
+
+  React.useEffect(
+    () => {
+      setPosition(
+        apply(
+          inverseOf(viewTransform),
+          [pointerX, pointerY]
+        )
+      )
+    },
+    [pointerX, pointerY]
+  )
 
   return (
     <rect
