@@ -20,8 +20,6 @@ export const useDrag = (): UseDragResult => {
   const [[pointerX, pointerY], setPointerPosition] = React.useState([0, 0])
   const [[deltaX, deltaY], setPointerDelta] = React.useState([0, 0])
 
-  const capturedPointerId = React.useRef<number>(-1)
-
   const prevPointerPosition = React.useRef<[number, number]>([0, 0])
 
   React.useEffect(
@@ -49,16 +47,15 @@ export const useDrag = (): UseDragResult => {
 
         setIsPointerDown(true)
 
-        capturedPointerId.current = pointerId
         ;(target as Element).setPointerCapture(pointerId)
       },
       onPointerMove: (e) => {
-        e.preventDefault()
-        e.stopPropagation()
+        if (isPointerDown) {
+          e.preventDefault()
+          e.stopPropagation()
 
-        const { pointerId, pointerType, clientX, clientY } = e
+          const { pointerType, clientX, clientY } = e
 
-        if (isPointerDown && pointerId === capturedPointerId.current) {
           setPointerType(pointerType)
           setPointerPosition(([prevX, prevY]) => {
             prevPointerPosition.current = [prevX, prevY]
@@ -74,7 +71,6 @@ export const useDrag = (): UseDragResult => {
 
         setIsPointerDown(false)
 
-        capturedPointerId.current = -1
         ;(target as Element).releasePointerCapture(pointerId)
       }
     }
