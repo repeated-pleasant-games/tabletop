@@ -61,7 +61,16 @@ export const Table = ({
       if (scrollY !== 0) {
         const scrollMagnitude = Math.abs(scrollY) * 0.01
         const factor = scrollY > 0 ? 1 - scrollMagnitude : 1 + scrollMagnitude
-        setViewTransform(scaleBy(factor, viewTransform))
+
+        setViewTransform(
+          translateBy(
+            [
+              pointerPosition[0] * (1 - factor),
+              pointerPosition[1] * (1 - factor)
+            ],
+            scaleBy(factor, viewTransform)
+          )
+        )
       }
     },
     [scrollY]
