@@ -6,6 +6,8 @@
     "develop": "vite",
     "build": "vite build",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "prepare": "husky install"
   },
   "keywords": [
@@ -21,8 +23,6 @@
   "license": "AGPL-3.0-only",
   "dependencies": {
     "@joebobmiles/y-react": "^1.1.4",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "yjs": "^13.5.12",
@@ -35,7 +35,13 @@
     "@google/semantic-release-replace-plugin": "^1.1.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
     "husky": "^7.0.2",
     "jest": "^27.1.0",
     "semantic-release": "^17.4.7",

@@ -1,3 +1,11 @@
-import { VERSION } from '@/config'
+import React from 'react'
+import { render } from 'react-dom'
 
-console.log(VERSION)
+import App from './App'
+
+render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('app-root')
+)
