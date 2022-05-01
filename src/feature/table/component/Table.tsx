@@ -81,7 +81,7 @@ export const Table = ({
       }}
       onPointerMoveCapture={orchestrate(
         (e) => setPointerPosition([e.clientX, e.clientY]),
-        dragEventListeners.onPointerMoveCapture
+        dragEventListeners.onPointerMove
       )}
       // eslint-disable-next-line react/jsx-handler-names
       onPointerDown={orchestrate(

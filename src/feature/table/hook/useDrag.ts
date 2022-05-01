@@ -9,7 +9,7 @@ interface UseDragResult {
   pointerType: PointerType
   eventListeners: {
     onPointerDown: (e: React.PointerEvent) => void
-    onPointerMoveCapture: (e: React.PointerEvent) => void
+    onPointerMove: (e: React.PointerEvent) => void
     onPointerUp: (e: React.PointerEvent) => void
   }
 }
@@ -52,7 +52,7 @@ export const useDrag = (): UseDragResult => {
         capturedPointerId.current = pointerId
         ;(target as Element).setPointerCapture(pointerId)
       },
-      onPointerMoveCapture: (e) => {
+      onPointerMove: (e) => {
         e.preventDefault()
         e.stopPropagation()
 
