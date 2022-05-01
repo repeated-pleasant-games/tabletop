@@ -1,10 +1,11 @@
 import React from 'react'
 
 import useLocalStore from '@/store/local'
-import { translateBy } from '@/lib/Transform'
+import { scaleBy, translateBy } from '@/lib/Transform'
 import { Cursor } from '@/component/Cursor'
 
 import { Token } from '../feature/token'
+import { useScroll } from '../hook/useScroll'
 
 export const Table = ({
   background: Background
@@ -23,6 +24,19 @@ export const Table = ({
   const [viewTransform, setViewTransform] = useLocalStore(
     ({ viewTransform, setViewTransform }) =>
       [viewTransform, setViewTransform]
+  )
+
+  const { scrollY, eventListeners } = useScroll()
+
+  React.useEffect(
+    () => {
+      if (scrollY !== 0) {
+        const scrollMagnitude = Math.abs(scrollY) * 0.01
+        const factor = scrollY > 0 ? 1 - scrollMagnitude : 1 + scrollMagnitude
+        setViewTransform(scaleBy(factor, viewTransform))
+      }
+    },
+    [scrollY]
   )
 
   return (
@@ -65,6 +79,7 @@ export const Table = ({
         capturedPointerId.current = -1
         ;(target as Element).releasePointerCapture(pointerId)
       }}
+      {...eventListeners}
     >
       <Background />
       <Token />
