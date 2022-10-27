@@ -4,16 +4,16 @@ import useLocalStore from '@/store/local'
 import { getScale, inverseOf, toSvgMatrix } from '@/lib/Transform'
 
 const GRID_CELL_WIDTH = 70 // Roll20 uses a 70px grid. 70px ~ 1in
+const PATTERN_ID = 'rectangular-grid-pattern'
 
 export const RectangularGrid = (): JSX.Element => {
   const viewTransform = useLocalStore(({ viewTransform }) => viewTransform)
 
-  const patternId = 'rectangular-grid-pattern'
   return (
     <>
       <defs>
         <pattern
-          id={patternId}
+          id={PATTERN_ID}
           width={GRID_CELL_WIDTH}
           height={GRID_CELL_WIDTH}
           patternUnits='userSpaceOnUse'
@@ -27,7 +27,7 @@ export const RectangularGrid = (): JSX.Element => {
           />
         </pattern>
       </defs>
-      <rect width='100%' height='100%' fill={`url(#${patternId})`} />
+      <rect width='100%' height='100%' fill={`url(#${PATTERN_ID})`} />
     </>
   )
 }
